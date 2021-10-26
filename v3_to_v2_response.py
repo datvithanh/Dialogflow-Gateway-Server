@@ -26,24 +26,26 @@ v2_reponse = {
 
 def v3_to_v2(v3_json):
     response = copy.deepcopy(v2_reponse)
-    response["queryResult"]["queryText"] = v3_json["text"]
+    response["responseId"] = v3_json["responseId"]
+
+    response["queryResult"]["queryText"] = v3_json["queryResult"]["text"]
     
-    response["queryResult"]["parameters"] = v3_json["parameters"]
+    response["queryResult"]["parameters"] = v3_json["queryResult"]["parameters"]
 
-    response["queryResult"]["fulfillmentText"] = v3_json["responseMessages"][0]["text"]["text"]
+    response["queryResult"]["fulfillmentText"] = v3_json["queryResult"]["responseMessages"][0]["text"]["text"]
 
-    response["queryResult"]["fulfillmentMessages"] = v3_json["responseMessages"]
+    response["queryResult"]["fulfillmentMessages"] = v3_json["queryResult"]["responseMessages"]
 
     try:
-        response["queryResult"]["intent"] =  v3_json["intent"]
+        response["queryResult"]["intent"] =  v3_json["queryResult"]["intent"]
     except:
         pass
         # continue
         # pdb.set_trace()
     
-    response["queryResult"]["languageCode"] = v3_json["languageCode"]
+    response["queryResult"]["languageCode"] = v3_json["queryResult"]["languageCode"]
 
-    response["queryResult"]["intentDetectionConfidence"] = v3_json["intentDetectionConfidence"]
+    response["queryResult"]["intentDetectionConfidence"] = v3_json["queryResult"]["intentDetectionConfidence"]
 
     return response
 
