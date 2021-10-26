@@ -6,8 +6,16 @@ import dialogflow
 from google.api_core.exceptions import InvalidArgument
 from google.protobuf.json_format import MessageToDict
 
+from google.cloud.dialogflowcx_v3beta1.services.agents import AgentsClient
+from google.cloud.dialogflowcx_v3beta1.services.sessions import SessionsClient
+from google.cloud.dialogflowcx_v3beta1.types import session
+
+from config import * 
+
 DIALOGFLOW_PROJECT_ID = os.environ['GOOGLE_CLOUD_PROJECT'] # Ensure GCP Project ID is set
 # os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = "/home/user/Downloads/service_account_keys.json" #If local machine
+
+language_code = "vi"
 
 DOMAINS_ALLOWED = "*" # You can restrict only for your sites here
 app = Flask(__name__)
@@ -30,17 +38,23 @@ def get_response_for_query():
     text_data = input_["queryInput"]["text"]["text"]
     
     session_id = input_["session"]
-    language_code = input_["queryInput"]["text"]["languageCode"]
+    session_path = f"{agent}/sessions/{session_id}"
 
-    session_client = dialogflow.SessionsClient()
-    session = session_client.session_path(
-        DIALOGFLOW_PROJECT_ID, session_id)
-    text_input = dialogflow.types.TextInput(
-        text=text_data, language_code=language_code)
-    query_input = dialogflow.types.QueryInput(text=text_input)
+    session_client = SessionsClient(client_options=client_options)
+
+    # session_client = dialogflow.SessionsClient()
+    # session = session_client.session_path(
+    #     DIALOGFLOW_PROJECT_ID, session_id)
+    # text_input = dialogflow.types.TextInput(
+    #     text=text_data, language_code=language_code)
+    # query_input = dialogflow.types.QueryInput(text=text_input)
+    text_input = session.TextInput(text=text_data)
+    query_input = session.QueryInput(text=text_input, language_code=language_code)
+    request = session.DetectIntentRequest(
+        session=session_path, query_input=query_input
+    )
     try:
-        response = session_client.detect_intent(
-            session=session, query_input=query_input)
+        response = session_client.detect_intent(request=request)
     except InvalidArgument:
         raise
 
@@ -48,4 +62,4 @@ def get_response_for_query():
 
 if __name__ == '__main__':
     # Run Flask server
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    app.run(host="0.0.0.0", port=6006, debug=True)
