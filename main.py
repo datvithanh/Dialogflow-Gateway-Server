@@ -11,6 +11,8 @@ from google.cloud.dialogflowcx_v3beta1.services.sessions import SessionsClient
 from google.cloud.dialogflowcx_v3beta1.types import session
 
 from config import * 
+import proto
+import pdb
 
 DIALOGFLOW_PROJECT_ID = os.environ['GOOGLE_CLOUD_PROJECT'] # Ensure GCP Project ID is set
 # os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = "/home/user/Downloads/service_account_keys.json" #If local machine
@@ -27,10 +29,8 @@ def index():
 
 @app.route('/get_dialogflow_agent', methods=['GET'])
 def get_dialogflow_account_details():
-    client = dialogflow.AgentsClient()
-    parent = client.project_path(DIALOGFLOW_PROJECT_ID)
-    details = client.get_agent(parent)
-    return make_response(jsonify(MessageToDict(details)))
+    # agent_components = AgentsClient.parse_agent_path(agent)
+    return make_response(jsonify(info))
 
 @app.route('/detect_intent', methods=['POST'])
 def get_response_for_query():
@@ -50,16 +50,18 @@ def get_response_for_query():
     # query_input = dialogflow.types.QueryInput(text=text_input)
     text_input = session.TextInput(text=text_data)
     query_input = session.QueryInput(text=text_input, language_code=language_code)
-    request = session.DetectIntentRequest(
+    req = session.DetectIntentRequest(
         session=session_path, query_input=query_input
     )
     try:
-        response = session_client.detect_intent(request=request)
+        response = session_client.detect_intent(request=req)
     except InvalidArgument:
         raise
-
-    return make_response(jsonify(MessageToDict(response)))
+    # print(response)
+    pdb.set_trace()
+    # return make_response(jsonify(MessageToDict(response.query_result)))
+    return make_response(jsonify(proto.Message.to_json(response.query_result)))
 
 if __name__ == '__main__':
     # Run Flask server
-    app.run(host="0.0.0.0", port=6006, debug=True)
+    app.run(host="0.0.0.0", port=5000, debug=True)
