@@ -12,6 +12,8 @@ from google.cloud.dialogflowcx_v3beta1.types import session
 
 from config import * 
 import proto
+from v3_to_v2_response import v3_to_v2
+import json
 import pdb
 
 DIALOGFLOW_PROJECT_ID = os.environ['GOOGLE_CLOUD_PROJECT'] # Ensure GCP Project ID is set
@@ -58,9 +60,11 @@ def get_response_for_query():
     except InvalidArgument:
         raise
     # print(response)
+    v3_response = json.loads(proto.Message.to_json(response.query_result))
+    v3 = json.loads(proto.Message.to_json(response))
     pdb.set_trace()
     # return make_response(jsonify(MessageToDict(response.query_result)))
-    return make_response(jsonify(proto.Message.to_json(response.query_result)))
+    return make_response(jsonify(v3_to_v2(v3_response)))
 
 if __name__ == '__main__':
     # Run Flask server

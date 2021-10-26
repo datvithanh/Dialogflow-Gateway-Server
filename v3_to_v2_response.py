@@ -1,8 +1,6 @@
 import json
 import copy
-
-v3_json = json.load(open('data/v3.json'))
-print(v3_json)
+import pdb
 
 v2_reponse = {
   "responseId": "36d68aed-9e55-4a04-93e2-615d80742518-cad07fe1",
@@ -26,7 +24,7 @@ v2_reponse = {
   }
 }
 
-def v3_to_v2(data):
+def v3_to_v2(v3_json):
     response = copy.deepcopy(v2_reponse)
     response["queryResult"]["queryText"] = v3_json["text"]
     
@@ -36,7 +34,12 @@ def v3_to_v2(data):
 
     response["queryResult"]["fulfillmentMessages"] = v3_json["responseMessages"]
 
-    response["queryResult"]["intent"] =  v3_json["intent"]
+    try:
+        response["queryResult"]["intent"] =  v3_json["intent"]
+    except:
+        pass
+        # continue
+        # pdb.set_trace()
     
     response["queryResult"]["languageCode"] = v3_json["languageCode"]
 
@@ -44,4 +47,7 @@ def v3_to_v2(data):
 
     return response
 
-print(v3_to_v2(v3_json))
+if __name__ == "__main__":
+    v3_json = json.load(open('data/v3.json'))
+    print(v3_json)
+    print(v3_to_v2(v3_json))
