@@ -1,0 +1,132 @@
+{
+  "text": "xin chao",
+  "languageCode": "vi",
+  "parameters": {
+    "in_hours": "false"
+  },
+  "responseMessages": [{
+    "text": {
+      "text": ["Xin chào!"],
+      "allowPlaybackInterruption": false
+    }
+  }],
+  "currentPage": {
+    "name": "projects/gde21-329909/locations/asia-northeast1/agents/1191c7bd-2189-4261-b6c6-c2c29572eba4/flows/00000000-0000-0000-0000-000000000000/pages/START_PAGE",
+    "displayName": "Start Page",
+    "transitionRouteGroups": [],
+    "transitionRoutes": [],
+    "eventHandlers": []
+  },
+  "intent": {
+    "name": "projects/gde21-329909/locations/asia-northeast1/agents/1191c7bd-2189-4261-b6c6-c2c29572eba4/intents/00000000-0000-0000-0000-000000000000",
+    "displayName": "Default Welcome Intent",
+    "trainingPhrases": [],
+    "parameters": [],
+    "priority": 0,
+    "isFallback": false,
+    "labels": {},
+    "description": ""
+  },
+  "intentDetectionConfidence": 1.0,
+  "diagnosticInfo": {
+    "Session Id": "0bc7e7b0-361b-11ec-a233-65e209899bbd",
+    "Execution Sequence": [{
+      "Step 1": {
+        "Type": "INITIAL_STATE",
+        "InitialState": {
+          "FlowState": {
+            "FlowId": "00000000-0000-0000-0000-000000000000",
+            "PageState": {
+              "Name": "Start Page",
+              "PageId": "START_PAGE",
+              "Status": "ENTERING_PAGE"
+            },
+            "Version": 0.0,
+            "Name": "Default Start Flow"
+          },
+          "MatchedIntent": {
+            "Active": true,
+            "DisplayName": "Default Welcome Intent",
+            "Type": "NLU",
+            "Score": 1.0,
+            "Id": "00000000-0000-0000-0000-000000000000"
+          }
+        }
+      }
+    }, {
+      "Step 2": {
+        "Type": "STATE_MACHINE",
+        "FunctionExecution": {
+          "SessionParameters(Updated)": {
+            "in_hours": "false"
+          },
+          "Responses": [{
+            "text": {
+              "redactedText": ["Xin chào!"],
+              "text": ["Xin chào!"]
+            },
+            "responseType": "HANDLER_PROMPT",
+            "source": "VIRTUAL_AGENT"
+          }]
+        },
+        "StateMachine": {
+          "TriggeredTransitionRouteId": "4f871e69-ceef-40f6-beeb-2ca250100f3b",
+          "FlowState": {
+            "PageState": {
+              "PageId": "START_PAGE",
+              "Status": "TRANSITION_ROUTING",
+              "Name": "Start Page"
+            },
+            "Name": "Default Start Flow",
+            "Version": 0.0,
+            "FlowId": "00000000-0000-0000-0000-000000000000"
+          },
+          "TriggeredIntent": "Default Welcome Intent"
+        }
+      }
+    }, {
+      "Step 3": {
+        "StateMachine": {
+          "FlowState": {
+            "Version": 0.0,
+            "FlowId": "00000000-0000-0000-0000-000000000000",
+            "PageState": {
+              "Status": "TRANSITION_ROUTING",
+              "PageId": "START_PAGE",
+              "Name": "Start Page"
+            },
+            "Name": "Default Start Flow"
+          }
+        },
+        "Type": "STATE_MACHINE"
+      }
+    }],
+    "Transition Targets Chain": [],
+    "Alternative Matched Intents": [{
+      "Id": "00000000-0000-0000-0000-000000000000",
+      "Score": 1.0,
+      "Type": "NLU",
+      "DisplayName": "Default Welcome Intent",
+      "Active": true
+    }],
+    "Triggered Transition Names": ["4f871e69-ceef-40f6-beeb-2ca250100f3b"]
+  },
+  "match": {
+    "intent": {
+      "name": "projects/gde21-329909/locations/asia-northeast1/agents/1191c7bd-2189-4261-b6c6-c2c29572eba4/intents/00000000-0000-0000-0000-000000000000",
+      "displayName": "Default Welcome Intent",
+      "trainingPhrases": [],
+      "parameters": [],
+      "priority": 0,
+      "isFallback": false,
+      "labels": {},
+      "description": ""
+    },
+    "resolvedInput": "xin chao",
+    "matchType": 1,
+    "confidence": 1.0,
+    "event": ""
+  },
+  "webhookStatuses": [],
+  "webhookPayloads": []
+}
