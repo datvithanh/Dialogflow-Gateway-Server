@@ -1,0 +1,21 @@
+{
+  "responseId": "36d68aed-9e55-4a04-93e2-615d80742518-cad07fe1",
+  "queryResult": {
+    "queryText": "Hello",
+    "action": "input.welcome",
+    "parameters": {},
+    "allRequiredParamsPresent": true,
+    "fulfillmentText": "Good day! What can I do for you today?",
+    "fulfillmentMessages": [{
+      "text": {
+        "text": ["Good day! What can I do for you today?"]
+      }
+    }],
+    "intent": {
+      "name": "projects/optimum-pier-326005/agent/intents/7c8ff205-06f6-4ce2-96f7-b07225e7957d",
+      "displayName": "Default Welcome Intent"
+    },
+    "intentDetectionConfidence": 1.0,
+    "languageCode": "en"
+  }
+}
